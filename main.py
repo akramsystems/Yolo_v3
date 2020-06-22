@@ -13,6 +13,12 @@ import requests
 
 ROOT= "./weights/yolo"
 
+# Read image to classify
+IMG_URL = "https://www.pragmaticmom.com/wp-content/uploads/2014/05/map.jpg"
+response = requests.get(IMG_URL)
+img_raw = tf.image.decode_image(response.content, channels=3)
+
+
 # Get model weights and output
 filename_classes = tf.keras.utils.get_file(os.path.join(ROOT, 'coco.names'),origin='https://raw.githubusercontent.com/zzh8829/yolov3-tf2/master/data/coco.names')
 filename_converted_weights = tf.keras.utils.get_file(os.path.join(ROOT, 'yolov3.weights'),origin='https://pjreddie.com/media/files/yolov3.weights')
@@ -43,11 +49,6 @@ print('weights loaded')
 
 class_names = [c.strip() for c in open(FLAGS.classes).readlines()]
 print('classes loaded')
-
-# Read image to classify
-url = "https://www.pragmaticmom.com/wp-content/uploads/2014/05/map.jpg"
-response = requests.get(url)
-img_raw = tf.image.decode_image(response.content, channels=3)
 
 # Preprocess
 img = tf.expand_dims(img_raw, 0)
