@@ -11,6 +11,11 @@ import sys
 from PIL import Image, ImageFile
 import requests
 
+ROOT= "./weights/yolo"
+
+# Get model weights and output
+filename_classes = tf.keras.utils.get_file(os.path.join(ROOT, 'coco.names'),origin='https://raw.githubusercontent.com/zzh8829/yolov3-tf2/master/data/coco.names')
+filename_converted_weights = tf.keras.utils.get_file(os.path.join(ROOT, 'yolov3.weights'),origin='https://pjreddie.com/media/files/yolov3.weights')
 
 # Flags are used to define several options for YOLO.
 flags.DEFINE_string('classes', filename_classes, 'path to classes file')
